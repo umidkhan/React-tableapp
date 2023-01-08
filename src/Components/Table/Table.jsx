@@ -5,11 +5,16 @@ import "./Table.css";
 
 export default function Table() {
   const [data, setData] = useState([]);
+  const [elements, setElements] = useState([])
   const getData = () => {
     axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
       setData(res.data);
-      console.log(res);
-      console.log(res.data.company);
+      const thead = res.data[0];
+      console.log(Object.keys(thead));
+      const obj = Object.keys(thead);
+      console.log(obj);
+      obj.map((key) => [key])
+      setElements(obj)
     });
   };
   useEffect(() => {
@@ -19,14 +24,9 @@ export default function Table() {
     <>
       <table>
         <thead>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>Phone</th>
-          <th>Website</th>
-          <th>Company</th>
+          {elements.map((e) => {
+            return <th>{e}</th>;
+          })}
         </thead>
         {data.map((item) => {
           return (
